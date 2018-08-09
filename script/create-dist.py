@@ -159,6 +159,12 @@ def copy_vcruntime_binaries():
   if len(version_parts) > 3:
     runtime_version = '.'.join(version_parts[0:3])
 
+  if os.environ.has_key('VS_RUNTIME_VERSION'):
+    env_runtime_version = os.environ.get('VS_RUNTIME_VERSION')
+    if env_runtime_version != runtime_version:
+      print 'ERROR runtime version ' + runtime_version + ' does not match env'
+      runtime_version = env_runtime_version
+
   vs_location = get_vs_location('[15.0,16.0)')
 
   crt_dir = os.path.join(vs_location, 'VC', 'Redist', 'MSVC', runtime_version,
