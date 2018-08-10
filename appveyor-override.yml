@@ -4,10 +4,10 @@ environment:
   VS_RUNTIME_VERSION: 14.11.25325
 build_script:
 - ps: >-
-    echo "VS Version: $env:ELECTRON_VS_VERSION"
-
     echo "Build worker image $env:APPVEYOR_BUILD_WORKER_IMAGE"
 
+    &"C:\Program Files (x86)\Microsoft Visual Studio\Installer\vswhere.exe"
+    
     if(($env:APPVEYOR_PULL_REQUEST_HEAD_REPO_NAME -split "/")[0] -eq ($env:APPVEYOR_REPO_NAME -split "/")[0]) {
       Write-warning "Skipping PR build for branch"; Exit-AppveyorBuild
     } else {
